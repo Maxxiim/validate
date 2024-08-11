@@ -36,13 +36,11 @@ function validate(data, rules) {
         if (rule.min !== undefined && value < rule.min) {
           errors.push({ field: field, rule: "min", value: value });
           result = false;
-          console.log(errors);
         }
 
         if (rule.max !== undefined && value > rule.max) {
           errors.push({ field: field, rule: "max", value: value });
           result = false;
-          console.log(errors);
         }
       }
     }
