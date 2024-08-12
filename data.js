@@ -1,12 +1,12 @@
 var data = {
   name: "Alex",
-  age: 30,
+  age: NaN,
   city: null,
 };
 
 var rules = {
   name: { required: true, minLength: 1, maxLength: 4 },
-  age: { min: 18, max: 60 },
+  age: { min: 18, max: 50 },
 };
 
 function validate(data, rules) {
@@ -26,22 +26,43 @@ function validate(data, rules) {
     }
 
     if (field === "age") {
-      if (rule.isNumber || rule.min !== undefined || rule.max !== undefined) {
-        if (typeof value !== "number" || isNaN(value)) {
-          errors.push({ field: field, rule: "isNumber", value: value });
-          result = false;
-          console.log(errors);
-        }
 
-        if (rule.min !== undefined && value < rule.min) {
-          errors.push({ field: field, rule: "min", value: value });
-          result = false;
-        }
+      if (typeof value !== "number" || isNaN(value)) {
+        errors.push({ field: field, rule: "isNumber", value: value });
+        result = false;
+        console.log(errors)
+      }
 
-        if (rule.max !== undefined && value > rule.max) {
-          errors.push({ field: field, rule: "max", value: value });
+      if (rule.min !== undefined && value < rule.min) {
+        errors.push({ field: field, rule: "min", value: value })
+        result = false;
+        console.log(errors)
+      }
+      if (isNaN(value)) {
+        errors.push(
+          { value: NaN, field: 'age', rule: 'min' },
+          { value: NaN, field: 'age', rule: 'max' },
+        ),
           result = false;
-        }
+        console.log(errors)
+      }
+
+      if (rule.max !== undefined && value > rule.max) {
+        errors.push({ field: field, rule: "max", value: value })
+        result = false;
+        console.log(errors)
+      }
+      else {
+        return { errors, result }
+      }
+    }
+
+
+
+    if (rule.isBoolean) {
+      if (typeof value !== "boolean") {
+        errors.push({ field: field, rule: "isBoolean", value: value });
+        result = false;
       }
     }
 
