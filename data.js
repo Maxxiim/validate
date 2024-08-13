@@ -1,6 +1,6 @@
 var data = {
   name: "Alex",
-  age: NaN,
+  age: "4",
   city: null,
 };
 
@@ -38,14 +38,6 @@ function validate(data, rules) {
         result = false;
         console.log(errors)
       }
-      if (isNaN(value)) {
-        errors.push(
-          { value: NaN, field: 'age', rule: 'min' },
-          { value: NaN, field: 'age', rule: 'max' },
-        ),
-          result = false;
-        console.log(errors)
-      }
 
       if (rule.max !== undefined && value > rule.max) {
         errors.push({ field: field, rule: "max", value: value })
@@ -56,8 +48,6 @@ function validate(data, rules) {
         return { errors, result }
       }
     }
-
-
 
     if (rule.isBoolean) {
       if (typeof value !== "boolean") {
