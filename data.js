@@ -1,6 +1,6 @@
 var data = {
-  name: "Alex",
-  age: "4",
+  name: "",
+  age: 30,
   city: null,
 };
 
@@ -56,13 +56,23 @@ function validate(data, rules) {
       }
     }
 
-    if (value !== undefined && value !== null) {
+    if (value === undefined && value !== null) {
       if (rule.isString && typeof value !== "string") {
+        console.log(rule.isString && typeof value !== "string")
         errors.push({ field: field, rule: "isString", value: value });
         result = false;
         console.log(errors)
       }
     }
+
+    if (field === 'name') {
+      // Проверка на тип строки
+      if (typeof value !== 'string') {
+          errors.push({ field: field, rule: 'isString', value: value });
+          result = false;
+          console.log(errors)
+      } 
+  }
 
 
   };
