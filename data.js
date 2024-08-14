@@ -87,6 +87,19 @@ function validate(data, rules) {
       }
     }
 
+    // Проверка на email
+    if (rule.isEmail) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (typeof value === "string") {
+        if (!emailPattern.test(value)) {
+          errors.push({ field: field, rule: "isEmail", value: value });
+          result = false;
+        }
+      } else {
+        return { errors, result }
+      }
+    }
+
   };
   return { errors, result };
 };
