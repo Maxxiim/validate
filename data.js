@@ -1,11 +1,11 @@
 var data = {
-  name: "",
+  name: "Maxim",
   age: 30,
   city: null,
 };
 
 var rules = {
-  name: { required: true, minLength: 1, maxLength: 4 },
+  name: { required: true, minLength: 2, maxLength: 4 },
   age: { min: 18, max: 50 },
 };
 
@@ -25,6 +25,37 @@ function validate(data, rules) {
       }
     }
 
+    // Проверка на строку
+    if (value !== undefined && value !== null) {
+      if (rule.isString && typeof value !== "string") {
+        errors.push({ field: field, rule: "isString", value: value });
+        result = false;
+      }
+
+      if (typeof value === "string") {
+        let hasError = false;
+
+        if (rule.minLength !== undefined && value.length < rule.minLength) {
+          errors.push({ field: field, rule: "minLength", value: value });
+          hasError = true;
+        }
+
+        if (rule.maxLength !== undefined && value.length > rule.maxLength) {
+          errors.push({ field: field, rule: "maxLength", value: value });
+          hasError = true;
+        }
+
+        if (hasError) {
+          result = false;
+        }
+      } else if (rule.minLength !== undefined || rule.maxLength !== undefined) {
+        errors.push({ field: field, rule: "minLength", value: value });
+        errors.push({ field: field, rule: "maxLength", value: value });
+        result = false;
+      }
+    }
+
+    // Проверка на число
     if (field === "age") {
 
       if (typeof value !== "number" || isNaN(value)) {
@@ -55,25 +86,6 @@ function validate(data, rules) {
         result = false;
       }
     }
-
-    if (value === undefined && value !== null) {
-      if (rule.isString && typeof value !== "string") {
-        console.log(rule.isString && typeof value !== "string")
-        errors.push({ field: field, rule: "isString", value: value });
-        result = false;
-        console.log(errors)
-      }
-    }
-
-    if (field === 'name') {
-      // Проверка на тип строки
-      if (typeof value !== 'string') {
-          errors.push({ field: field, rule: 'isString', value: value });
-          result = false;
-          console.log(errors)
-      } 
-  }
-
 
   };
   return { errors, result };
