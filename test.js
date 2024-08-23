@@ -214,3 +214,40 @@
 // };
 
 // descendingOrder(n);
+
+// ==============================================
+// Нужно поместить объект в массив
+// items = []
+// items.push({a: "b", c: "d"});
+
+// ==============================================
+// Написать функцю, которая принимает число 
+// и выполняется с ней математические операции
+// .add(n), .sub(n), .mul(n), .div(n), .pow(n) and .sqr()
+// n.add(5).div(2).mul(3).sub(35).pow(2).sqr();
+
+let n = {
+    n: 25,
+    add(value) {
+        this.n += value;
+        return this.n;
+    },
+    sub(value) {
+         this.n -= value;
+         return this
+    },
+    mul(mul) {
+        return this.n * mul;
+    },
+    div(div) {
+        return this.n / div;
+    },
+    pow(pow) {
+        return this.n ** pow;
+    },
+    sqr() {
+        return Math.sqrt(this.n)
+    },
+};
+
+console.log(n.add(5).sub(2))
