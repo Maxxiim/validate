@@ -228,26 +228,30 @@
 
 let n = {
     n: 25,
-    add(value) {
+    add: function(value) {
         this.n += value;
-        return this.n;
+        return this;
     },
-    sub(value) {
-         this.n -= value;
-         return this
+    sub: function(value) {
+        this.n -= value;
+        return this;
     },
-    mul(mul) {
-        return this.n * mul;
+    mul: function(value) {
+        this.n *= value;
+        return this;
     },
-    div(div) {
-        return this.n / div;
+    div: function(value) {
+        this.n /= value;
+        return this;
     },
-    pow(pow) {
-        return this.n ** pow;
+    pow: function(value) {
+        this.n **= value;
+        return this;
     },
-    sqr() {
-        return Math.sqrt(this.n)
+    sqr: function() {
+        return Math.sqrt(this.n);
     },
 };
 
-console.log(n.add(5).sub(2))
+let res = n.add(5).div(2).mul(3).sub(35).pow(2).sqr();
+console.log(res)
